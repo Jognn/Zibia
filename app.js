@@ -18,13 +18,10 @@ app.on('ready', function(){
   }));
 
   // Build menu from template
-  //const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  /* const mainMenu = Menu.buildFromTemplate(mainMenuTemplate); */
   // Insert menu
-  //Menu.setApplicationMenu(mainMenu);
+  /* Menu.setApplicationMenu(mainMenu); */
 });
 
 // Create menu template
-const mainMenuTemplate = [
-  {
-  }
-]
+const mainMenuTemplate = [{}];
