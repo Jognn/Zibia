@@ -1,7 +1,7 @@
 
 const configuration = {
-  width: 800,
-  height: 600,
+  width: 4800,
+  height: 3200,
   renderer: Phaser.CANVAS
 };
 
