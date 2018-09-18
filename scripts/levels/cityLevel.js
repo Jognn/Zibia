@@ -11,7 +11,7 @@ cityLevel.prototype = {
 
   preload: function() {
     this.game.load.spritesheet('player', 'assets/random/dude.png', 32, 48);
-    this.game.load.tilemap('city', 'assets/levels/city/pruszkow-city2-test-warst3.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.tilemap('city', 'assets/levels/city/pruszkow-city.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('city-tiles', 'assets/levels/city/roguelikecity_transparent.png');
 
   },
