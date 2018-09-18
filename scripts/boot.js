@@ -1,12 +1,12 @@
 
 let bootState = function () {
-  bootcreate(bootState.name);
+  bootCreate(bootState.name);
 }
 
 bootState.prototype = {
 
   init: function () {
-    showstate('bootState');
+    showState('bootState');
   },
 
   create: function() {

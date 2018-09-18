@@ -13,10 +13,10 @@ game.state.add('city', cityLevel);
 
 game.state.start('boot');
 
-function bootcreate(source) {
+function bootCreate(source) {
   console.log('[BOOT] Creating ' + source);
 }
 
-function showstate(source) {
+function showState(source) {
   console.log('Launching ' + source);
 }
