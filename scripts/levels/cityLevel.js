@@ -1,6 +1,7 @@
 
 let cityLevel = function() {
   bootCreate(cityLevel.name);
+  console.log(self);
 }
 
 cityLevel.prototype = {
@@ -10,7 +11,7 @@ cityLevel.prototype = {
   },
 
   preload: function() {
-    this.game.load.spritesheet('player', 'assets/random/dude.png', 32, 48);
+    this.game.load.spritesheet('player', 'assets/aro.png', 32, 48);
     this.game.load.tilemap('city', 'assets/levels/city/pruszkow-city.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('city-tiles', 'assets/levels/city/roguelikecity_transparent.png');
 
@@ -25,28 +26,16 @@ cityLevel.prototype = {
     map.createLayer(1);
     this.game.camera.follow(this.player);
 
-    this.player = this.game.add.sprite(0, 0, 'player');
+    this.player = this.game.add.sprite(100, 100, 'player');
+    this.player.animations.add('left', [1, 2, 3, 4], 10, true);
+    this.player.animations.add('right', [9, 8, 7, 6], 10, true);
+
     this.game.physics.arcade.enable(this.player);
     this.game.camera.follow(this.player);
     this.player.body.collideWorldBounds
   },
 
   update: function() {
-    cursors = game.input.keyboard.createCursorKeys();
-
-    this.player.body.velocity.x = 0;
-    this.player.body.velocity.y = 0;
-    if (cursors.left.isDown){
-      this.player.body.velocity.x = -150;
-    }
-    else if (cursors.right.isDown) {
-      this.player.body.velocity.x = 150;
-    }
-    else if (cursors.down.isDown) {
-      this.player.body.velocity.y = 150;
-    }
-    else if (cursors.up.isDown) {
-      this.player.body.velocity.y = -150;
-    }
+    movement(this.player);
   }
 };
