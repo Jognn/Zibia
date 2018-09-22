@@ -14,7 +14,7 @@ Zibia.preloader.prototype = {
 
   create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.world.setBounds(0, 0, 4800, 3200);
+    game.world.setBounds(0, 0, 3200, 4800);
 
     Zibia.player = this.make.sprite(16, 16, 'player', 6);
     Zibia.player.anchor.set(0.5);

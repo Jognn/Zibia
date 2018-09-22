@@ -5,8 +5,7 @@ class GameMechanics {
 
   }
 
-  movement(player) {
-    let cursors = game.input.keyboard.createCursorKeys();
+  movement(player, cursors) {
 
     player.body.velocity.x = 0;
     player.body.velocity.y = 0;
@@ -24,9 +23,6 @@ class GameMechanics {
     }
   }
 
-  showDialog(state, tekst) {
-    state.add.text(100, 200, tekst);
-  }
 }
 
 let gms = new GameMechanics();
