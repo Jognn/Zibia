@@ -1,0 +1,4 @@
+var Zibia = {
+    player: null
+
+};
