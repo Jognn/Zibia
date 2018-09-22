@@ -5,7 +5,7 @@ const configuration = {
   parent: 'gameDiv'
 };
 
-let game = new Phaser.Game(configuration);
+var game = new Phaser.Game(configuration);
 
 let Zibia = {
     player: null,
@@ -64,7 +64,8 @@ class GameMechanics {
 
   }
 
-  movement(player, cursors) {
+  movement(player) {
+    let cursors = game.input.keyboard.createCursorKeys();
 
     player.body.velocity.x = 0;
     player.body.velocity.y = 0;
@@ -129,7 +130,6 @@ Zibia.cityLevel = function() {
 Zibia.cityLevel.prototype = {
   init: function(){
     stateInfo.showState('cityLevel');
-    this.cursors = game.input.keyboard.createCursorKeys();
   },
 
   preload: function() {
@@ -175,7 +175,7 @@ Zibia.preloader.prototype = {
 
   create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.world.setBounds(0, 0, 4800, 3200);
+    game.world.setBounds(0, 0, 3200, 4800);
 
     Zibia.player = this.make.sprite(16, 16, 'player', 6);
     Zibia.player.anchor.set(0.5);

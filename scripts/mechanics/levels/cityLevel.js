@@ -6,7 +6,6 @@ Zibia.cityLevel = function() {
 Zibia.cityLevel.prototype = {
   init: function(){
     stateInfo.showState('cityLevel');
-    this.cursors = game.input.keyboard.createCursorKeys();
   },
 
   preload: function() {

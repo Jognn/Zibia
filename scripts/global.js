@@ -5,7 +5,7 @@ const configuration = {
   parent: 'gameDiv'
 };
 
-let game = new Phaser.Game(configuration);
+var game = new Phaser.Game(configuration);
 
 let Zibia = {
     player: null,
