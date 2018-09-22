@@ -1,11 +1,11 @@
 Zibia.preloader = function () {
-  bootCreate('preloader');
+  stateInfo.bootCreate('preloader');
 }
 
 Zibia.preloader.prototype = {
 
   init: function () {
-    showState('preloader');
+    stateInfo.showState('preloader');
   },
 
   preload: function () {

@@ -1,11 +1,11 @@
 
 Zibia.roomLevel = function() {
-  bootCreate('roomLevel');
+  stateInfo.bootCreate('roomLevel');
 }
 
 Zibia.roomLevel.prototype = {
   init: function(){
-    showState('roomLevel');
+    stateInfo.showState('roomLevel');
   },
 
   create: function(){

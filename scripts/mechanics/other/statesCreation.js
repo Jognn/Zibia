@@ -1,11 +1,3 @@
-const configuration = {
-  width: screen.width,
-  height: screen.height,
-  renderer: Phaser.CANVAS,
-  parent: 'gameDiv'
-};
-
-var game = new Phaser.Game(configuration);
 
 game.state.add('boot', Zibia.bootState);
 game.state.add('preloader', Zibia.preloader);

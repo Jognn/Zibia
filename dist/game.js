@@ -1,20 +1,84 @@
+const configuration = {
+  width: screen.width,
+  height: screen.height,
+  renderer: Phaser.CANVAS,
+  parent: 'gameDiv'
+};
+
+var game = new Phaser.Game(configuration);
+
 var Zibia = {
-    player: null
+    player: null,
+    dialogs: {
+      tekst1: 'siema'
+    }
 
 };
 
 
+class GameMechanics {
+
+  constructor() {
+
+  }
+
+  movement(player) {
+    let cursors = game.input.keyboard.createCursorKeys();
+
+    player.body.velocity.x = 0;
+    player.body.velocity.y = 0;
+    if (cursors.left.isDown){
+      player.body.velocity.x = -300;
+    }
+    else if (cursors.right.isDown) {
+      player.body.velocity.x = 300;
+    }
+    else if (cursors.down.isDown) {
+      player.body.velocity.y = 300;
+    }
+    else if (cursors.up.isDown) {
+      player.body.velocity.y = -300;
+    }
+  }
+
+  showDialog(state, tekst) {
+    state.add.text(100, 200, tekst);
+  }
+}
+
+let gms = new GameMechanics();
+
+
+class StateInfo {
+
+  constructor() {
+
+  }
+
+  bootCreate(source) {
+    console.log('[BOOT] Creating ' + source);
+  }
+
+  showState(source) {
+    console.log('Launching ' + source);
+  }
+
+}
+
+let stateInfo = new StateInfo();
+
+
 Zibia.cityLevel = function() {
-    bootCreate('cityLevel');
+    stateInfo.bootCreate('cityLevel');
 }
 
 Zibia.cityLevel.prototype = {
   init: function(){
-    showState('cityLevel');
+    stateInfo.showState('cityLevel');
   },
 
   preload: function() {
-    this.load.tilemap('city', 'assets/levels/city/pruszkow-city.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('city', 'assets/levels/city/pruszkow.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.image('city-tiles', 'assets/levels/city/roguelikecity_transparent.png');
   },
 
@@ -22,30 +86,32 @@ Zibia.cityLevel.prototype = {
     this.stage.backgroundColor = 0x808080;
     let map = this.add.tilemap('city');
     map.addTilesetImage('roguelikeCity_transparent', 'city-tiles');
-    map.createLayer(0);
-    map.createLayer(1);
-
-    this.game.camera.follow(Zibia.player);
+    for (let i = 0; i < 3; i++) {
+      map.createLayer(i);
+    }
 
     if(!Zibia.player.parent) {
       this.add.existing(Zibia.player);
     }
+    this.game.camera.follow(Zibia.player);
+
+    gms.showDialog(this, Zibia.dialogs.tekst1);
 
   },
 
-update: function() {
-    movement(Zibia.player);
-}
+  update: function() {
+      gms.movement(Zibia.player);
+  },
 };
 
 Zibia.preloader = function () {
-  bootCreate('preloader');
+  stateInfo.bootCreate('preloader');
 }
 
 Zibia.preloader.prototype = {
 
   init: function () {
-    showState('preloader');
+    stateInfo.showState('preloader');
   },
 
   preload: function () {
@@ -66,12 +132,12 @@ Zibia.preloader.prototype = {
 
 
 Zibia.roomLevel = function() {
-  bootCreate('roomLevel');
+  stateInfo.bootCreate('roomLevel');
 }
 
 Zibia.roomLevel.prototype = {
   init: function(){
-    showState('roomLevel');
+    stateInfo.showState('roomLevel');
   },
 
   create: function(){
@@ -81,13 +147,13 @@ Zibia.roomLevel.prototype = {
 
 
 Zibia.bootState = function () {
-  bootCreate('bootState');
+  stateInfo.bootCreate('bootState');
 }
 
 Zibia.bootState.prototype = {
 
   init: function () {
-    showState('bootState');
+    stateInfo.showState('bootState');
   },
 
   create: function() {
@@ -95,42 +161,6 @@ Zibia.bootState.prototype = {
   }
 };
 
-
-function movement(player) {
-  cursors = game.input.keyboard.createCursorKeys();
-
-  player.body.velocity.x = 0;
-  player.body.velocity.y = 0;
-  if (cursors.left.isDown){
-    player.body.velocity.x = -300;
-  }
-  else if (cursors.right.isDown) {
-    player.body.velocity.x = 300;
-  }
-  else if (cursors.down.isDown) {
-    player.body.velocity.y = 300;
-  }
-  else if (cursors.up.isDown) {
-    player.body.velocity.y = -300;
-  }
-}
-
-function bootCreate(source) {
-  console.log('[BOOT] Creating ' + source);
-}
-
-function showState(source) {
-  console.log('Launching ' + source);
-}
-
-const configuration = {
-  width: screen.width,
-  height: screen.height,
-  renderer: Phaser.CANVAS,
-  parent: 'gameDiv'
-};
-
-var game = new Phaser.Game(configuration);
 
 game.state.add('boot', Zibia.bootState);
 game.state.add('preloader', Zibia.preloader);

@@ -1,12 +1,12 @@
 
 Zibia.bootState = function () {
-  bootCreate('bootState');
+  stateInfo.bootCreate('bootState');
 }
 
 Zibia.bootState.prototype = {
 
   init: function () {
-    showState('bootState');
+    stateInfo.showState('bootState');
   },
 
   create: function() {

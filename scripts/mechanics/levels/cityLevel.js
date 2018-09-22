@@ -1,15 +1,15 @@
 
 Zibia.cityLevel = function() {
-    bootCreate('cityLevel');
+    stateInfo.bootCreate('cityLevel');
 }
 
 Zibia.cityLevel.prototype = {
   init: function(){
-    showState('cityLevel');
+    stateInfo.showState('cityLevel');
   },
 
   preload: function() {
-    this.load.tilemap('city', 'assets/levels/city/pruszkow-city.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('city', 'assets/levels/city/pruszkow.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.image('city-tiles', 'assets/levels/city/roguelikecity_transparent.png');
   },
 
@@ -17,18 +17,20 @@ Zibia.cityLevel.prototype = {
     this.stage.backgroundColor = 0x808080;
     let map = this.add.tilemap('city');
     map.addTilesetImage('roguelikeCity_transparent', 'city-tiles');
-    map.createLayer(0);
-    map.createLayer(1);
-
-    this.game.camera.follow(Zibia.player);
+    for (let i = 0; i < 3; i++) {
+      map.createLayer(i);
+    }
 
     if(!Zibia.player.parent) {
       this.add.existing(Zibia.player);
     }
+    this.game.camera.follow(Zibia.player);
+
+    gms.showDialog(this, Zibia.dialogs.tekst1);
 
   },
 
-update: function() {
-    movement(Zibia.player);
-}
+  update: function() {
+      gms.movement(Zibia.player);
+  },
 };
