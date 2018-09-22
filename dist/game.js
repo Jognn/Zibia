@@ -50,6 +50,7 @@ class DialogService {
     console.log(`Width: ${screen.width}  Height: ${screen.height}`);
     this.text = state.add.text(Zibia.textBounds.x, Zibia.textBounds.y, tekst, Zibia.textStyle);
     this.sprite = state.add.sprite(Zibia.facePositon.x, Zibia.facePositon.y, face);
+    this.sprite.fixedToCamera = true;
     this.text.alpha = 0.94;
     this.text.fixedToCamera = true;
   }
@@ -64,23 +65,29 @@ class GameMechanics {
 
   }
 
-  movement(player) {
+  movement() {
     let cursors = game.input.keyboard.createCursorKeys();
 
-    player.body.velocity.x = 0;
-    player.body.velocity.y = 0;
-    
+    Zibia.player.body.velocity.x = 0;
+    Zibia.player.body.velocity.y = 0;
+
     if (cursors.left.isDown){
-      player.body.velocity.x = -300;
+      Zibia.player.body.velocity.x = -300;
+      Zibia.player.animations.play('left');
     }
     else if (cursors.right.isDown) {
-      player.body.velocity.x = 300;
+      Zibia.player.body.velocity.x = 300;
+      Zibia.player.animations.play('right');
     }
     else if (cursors.down.isDown) {
-      player.body.velocity.y = 300;
+      Zibia.player.body.velocity.y = 300;
     }
     else if (cursors.up.isDown) {
-      player.body.velocity.y = -300;
+      Zibia.player.body.velocity.y = -300;
+    }
+    else {
+      Zibia.player.animations.stop();
+      Zibia.player.frame = 4;
     }
   }
 
@@ -131,6 +138,7 @@ Zibia.cityLevel = function() {
 Zibia.cityLevel.prototype = {
   init: function(){
     stateInfo.showState('cityLevel');
+    this.game.time.advancedTiming = true;
   },
 
   preload: function() {
@@ -140,6 +148,8 @@ Zibia.cityLevel.prototype = {
   },
 
   create: function() {
+    game.world.setBounds(0, 0, 4800, 3200);
+    Zibia.player.frame = 4;
     let map = this.add.tilemap('city');
     map.addTilesetImage('roguelikeCity_transparent', 'city-tiles');
     for (let i = 0; i < 3; i++) {
@@ -158,6 +168,10 @@ Zibia.cityLevel.prototype = {
   update: function() {
       gms.movement(Zibia.player, this.cursors);
   },
+
+  render: function () {
+    this.game.debug.text(game.time.fps, 2, 14, "#00ff00");
+  }
 };
 
 Zibia.preloader = function () {
@@ -171,15 +185,16 @@ Zibia.preloader.prototype = {
   },
 
   preload: function () {
-    this.game.load.image('player', 'assets/random/dude.png');
+    this.game.load.spritesheet('player', 'assets/aro.png', 32, 48);
   },
 
   create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.world.setBounds(0, 0, 4800, 3200);
 
-    Zibia.player = this.make.sprite(16, 16, 'player', 6);
+    Zibia.player = this.make.sprite(16, 16, 'player');
     Zibia.player.anchor.set(0.5);
+    Zibia.player.animations.add('left', [0, 1, 2, 3], 10, true);
+    Zibia.player.animations.add('right', [5, 6, 7, 8], 10, true);
     this.physics.arcade.enable(Zibia.player);
 
     this.game.state.start('roomLevel');

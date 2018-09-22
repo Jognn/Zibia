@@ -9,15 +9,16 @@ Zibia.preloader.prototype = {
   },
 
   preload: function () {
-    this.game.load.image('player', 'assets/random/dude.png');
+    this.game.load.spritesheet('player', 'assets/aro.png', 32, 48);
   },
 
   create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.world.setBounds(0, 0, 4800, 3200);
 
-    Zibia.player = this.make.sprite(16, 16, 'player', 6);
+    Zibia.player = this.make.sprite(16, 16, 'player');
     Zibia.player.anchor.set(0.5);
+    Zibia.player.animations.add('left', [0, 1, 2, 3], 10, true);
+    Zibia.player.animations.add('right', [5, 6, 7, 8], 10, true);
     this.physics.arcade.enable(Zibia.player);
 
     this.game.state.start('roomLevel');

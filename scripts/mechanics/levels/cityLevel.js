@@ -6,6 +6,7 @@ Zibia.cityLevel = function() {
 Zibia.cityLevel.prototype = {
   init: function(){
     stateInfo.showState('cityLevel');
+    this.game.time.advancedTiming = true;
   },
 
   preload: function() {
@@ -15,6 +16,8 @@ Zibia.cityLevel.prototype = {
   },
 
   create: function() {
+    game.world.setBounds(0, 0, 4800, 3200);
+    Zibia.player.frame = 4;
     let map = this.add.tilemap('city');
     map.addTilesetImage('roguelikeCity_transparent', 'city-tiles');
     for (let i = 0; i < 3; i++) {
@@ -33,4 +36,8 @@ Zibia.cityLevel.prototype = {
   update: function() {
       gms.movement(Zibia.player, this.cursors);
   },
+
+  render: function () {
+    this.game.debug.text(game.time.fps, 2, 14, "#00ff00");
+  }
 };
