@@ -26,7 +26,7 @@ Zibia.cityLevel.prototype = {
     }
     this.game.camera.follow(Zibia.player);
 
-    dialog.showDialog(this, Zibia.dialogs.tekst1, 'arek-face');
+    dialog.showDialog(this, Zibia.dialogs.cityLevel.tekst1, 'arek-face');
 
   },
 

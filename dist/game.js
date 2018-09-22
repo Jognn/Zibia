@@ -48,8 +48,8 @@ class DialogService {
 
   showDialog(state, tekst, face) {
     console.log(`Width: ${screen.width}  Height: ${screen.height}`);
-    this.text = state.add.text(Zibia.textBounds.x, Zibia.textBounds.y, Zibia.dialogs.cityLevel.tekst1, Zibia.textStyle);
-    // this.sprite = this.add.sprite(Zibia.facePositon.x, Zibia.facePositon.y, key);
+    this.text = state.add.text(Zibia.textBounds.x, Zibia.textBounds.y, tekst, Zibia.textStyle);
+    this.sprite = state.add.sprite(Zibia.facePositon.x, Zibia.facePositon.y, face);
     this.text.alpha = 0.94;
     this.text.fixedToCamera = true;
   }
@@ -69,6 +69,7 @@ class GameMechanics {
 
     player.body.velocity.x = 0;
     player.body.velocity.y = 0;
+    
     if (cursors.left.isDown){
       player.body.velocity.x = -300;
     }
@@ -150,7 +151,7 @@ Zibia.cityLevel.prototype = {
     }
     this.game.camera.follow(Zibia.player);
 
-    dialog.showDialog(this, Zibia.dialogs.tekst1, 'arek-face');
+    dialog.showDialog(this, Zibia.dialogs.cityLevel.tekst1, 'arek-face');
 
   },
 
@@ -175,7 +176,7 @@ Zibia.preloader.prototype = {
 
   create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.world.setBounds(0, 0, 3200, 4800);
+    game.world.setBounds(0, 0, 4800, 3200);
 
     Zibia.player = this.make.sprite(16, 16, 'player', 6);
     Zibia.player.anchor.set(0.5);
@@ -196,6 +197,9 @@ Zibia.roomLevel.prototype = {
   },
 
   create: function(){
+    // if(!Zibia.player.parent) {
+    //   this.add.existing(Zibia.player);
+    // }
     this.game.state.start('cityLevel');
   }
 };

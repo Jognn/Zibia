@@ -8,8 +8,8 @@ class DialogService {
 
   showDialog(state, tekst, face) {
     console.log(`Width: ${screen.width}  Height: ${screen.height}`);
-    this.text = state.add.text(Zibia.textBounds.x, Zibia.textBounds.y, Zibia.dialogs.cityLevel.tekst1, Zibia.textStyle);
-    // this.sprite = this.add.sprite(Zibia.facePositon.x, Zibia.facePositon.y, key);
+    this.text = state.add.text(Zibia.textBounds.x, Zibia.textBounds.y, tekst, Zibia.textStyle);
+    this.sprite = state.add.sprite(Zibia.facePositon.x, Zibia.facePositon.y, face);
     this.text.alpha = 0.94;
     this.text.fixedToCamera = true;
   }
