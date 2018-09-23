@@ -6,7 +6,6 @@ Zibia.cityLevel = function() {
 Zibia.cityLevel.prototype = {
   init: function(){
     stateInfo.showState('cityLevel');
-    this.game.time.advancedTiming = true;
   },
 
   preload: function() {

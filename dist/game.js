@@ -48,8 +48,8 @@ class DialogService {
 
   showDialog(state, tekst, face) {
     console.log(`Width: ${screen.width}  Height: ${screen.height}`);
-    this.text = state.add.text(Zibia.textBounds.x, Zibia.textBounds.y, tekst, Zibia.textStyle);
-    this.sprite = state.add.sprite(Zibia.facePositon.x, Zibia.facePositon.y, face);
+    this.text = state.add.text(Zibia.textBounds.x * (state.game.camera.scale.x), Zibia.textBounds.y * (state.game.camera.scale.y), tekst, Zibia.textStyle);
+    this.sprite = state.add.sprite(Zibia.facePositon.x * (state.game.camera.scale.x) , Zibia.facePositon.y * (state.game.camera.scale.y), face);
     this.sprite.fixedToCamera = true;
     this.text.alpha = 0.94;
     this.text.fixedToCamera = true;
@@ -138,7 +138,6 @@ Zibia.cityLevel = function() {
 Zibia.cityLevel.prototype = {
   init: function(){
     stateInfo.showState('cityLevel');
-    this.game.time.advancedTiming = true;
   },
 
   preload: function() {
@@ -190,6 +189,11 @@ Zibia.preloader.prototype = {
 
   create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.game.time.advancedTiming = true;
+
+    this.game.camera.scale.x = 1.2;
+    this.game.camera.scale.y = 1.2;
+
 
     Zibia.player = this.make.sprite(16, 16, 'player');
     Zibia.player.anchor.set(0.5);
