@@ -7,7 +7,7 @@ const configuration = {
 
 var game = new Phaser.Game(configuration);
 
-let Zibia = {
+var Zibia = {
     player: null,
     dialogs: {
       roomLevel: {

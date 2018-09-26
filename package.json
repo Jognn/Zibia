@@ -19,11 +19,12 @@
   },
   "homepage": "https://github.com/Jognn/Zibia#readme",
   "dependencies": {
-    "electron": "^2.0.9",
     "gulp": "^3.9.1",
-    "gulp-install": "^1.1.0"
+    "gulp-install": "^1.1.0",
+    "npm": "^6.4.1"
   },
   "devDependencies": {
+    "electron": "^3.0.0",
     "electron-packager": "^12.1.2",
     "gulp-concat": "^2.6.1"
   }

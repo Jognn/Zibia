@@ -1,15 +1,14 @@
+class BootState {
+    constructor() {
+        stateInfo.bootCreate('bootState');
+    }
 
-Zibia.bootState = function () {
-  stateInfo.bootCreate('bootState');
+    init() {
+        stateInfo.showState('bootState');
+    }
+
+    create() {
+        this.game.state.start('preloader');
+    }
 }
-
-Zibia.bootState.prototype = {
-
-  init: function () {
-    stateInfo.showState('bootState');
-  },
-
-  create: function() {
-    this.game.state.start('preloader');
-  }
-};
+Zibia.bootState = new BootState();

@@ -7,7 +7,7 @@ const configuration = {
 
 var game = new Phaser.Game(configuration);
 
-let Zibia = {
+var Zibia = {
     player: null,
     dialogs: {
       roomLevel: {
@@ -73,21 +73,22 @@ class GameMechanics {
 
     if (cursors.left.isDown){
       Zibia.player.body.velocity.x = -300;
-      Zibia.player.animations.play('left');
+      // Zibia.player.animations.play('left');
     }
     else if (cursors.right.isDown) {
       Zibia.player.body.velocity.x = 300;
-      Zibia.player.animations.play('right');
+      // Zibia.player.animations.play('right');
     }
     else if (cursors.down.isDown) {
       Zibia.player.body.velocity.y = 300;
     }
     else if (cursors.up.isDown) {
       Zibia.player.body.velocity.y = -300;
+      Zibia.player.frame = 3;
     }
     else {
       Zibia.player.animations.stop();
-      Zibia.player.frame = 4;
+      // Zibia.player.frame = 4;
     }
   }
 
@@ -114,114 +115,118 @@ class StateInfo {
 
 let stateInfo = new StateInfo();
 
-
-Zibia.bootState = function () {
-  stateInfo.bootCreate('bootState');
-}
-
-Zibia.bootState.prototype = {
-
-  init: function () {
-    stateInfo.showState('bootState');
-  },
-
-  create: function() {
-    this.game.state.start('preloader');
-  }
-};
-
-
-Zibia.cityLevel = function() {
-    stateInfo.bootCreate('cityLevel');
-}
-
-Zibia.cityLevel.prototype = {
-  init: function(){
-    stateInfo.showState('cityLevel');
-  },
-
-  preload: function() {
-    this.load.tilemap('city', 'assets/levels/city/pruszkow.json', null, Phaser.Tilemap.TILED_JSON);
-    this.load.image('arek-face', 'assets/faces/arekTwarz.png');
-    this.load.image('city-tiles', 'assets/levels/city/roguelikecity_transparent.png');
-  },
-
-  create: function() {
-    game.world.setBounds(0, 0, 4800, 3200);
-    Zibia.player.frame = 4;
-    let map = this.add.tilemap('city');
-    map.addTilesetImage('roguelikeCity_transparent', 'city-tiles');
-    for (let i = 0; i < 3; i++) {
-      map.createLayer(i);
+class BootState {
+    constructor() {
+        stateInfo.bootCreate('bootState');
     }
 
-    if(!Zibia.player.parent) {
-      this.add.existing(Zibia.player);
+    init() {
+        stateInfo.showState('bootState');
     }
-    this.game.camera.follow(Zibia.player);
 
-    dialog.showDialog(this, Zibia.dialogs.cityLevel.tekst1, 'arek-face');
+    create() {
+        this.game.state.start('preloader');
+    }
+}
+Zibia.bootState = new BootState();
 
-  },
 
-  update: function() {
-      gms.movement(Zibia.player, this.cursors);
-  },
+class CityLevel {
+    constructor() {
+        stateInfo.bootCreate('cityLevel');
+    }
 
-  render: function () {
-    this.game.debug.text(game.time.fps, 2, 14, "#00ff00");
-  }
-};
+    init() {
+        stateInfo.showState('cityLevel');
+    }
 
-Zibia.preloader = function () {
-  stateInfo.bootCreate('preloader');
+    preload() {
+        this.load.tilemap('city', 'assets/levels/city/pruszkow.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.image('arek-face', 'assets/faces/arekTwarz.png');
+        this.load.image('city-tiles', 'assets/levels/city/roguelikecity_transparent.png');
+    }
+
+    create() {
+        game.world.setBounds(0, 0, 3200, 4800);
+        Zibia.player.frame = 4;
+        let map = this.add.tilemap('city');
+        map.addTilesetImage('roguelikeCity_transparent', 'city-tiles');
+        for (let i = 0; i < 3; i++) {
+          map.createLayer(i);
+        }
+
+        if(!Zibia.player.parent) {
+          this.add.existing(Zibia.player);
+        }
+        this.game.camera.follow(Zibia.player);
+
+        dialog.showDialog(this, Zibia.dialogs.cityLevel.tekst1, 'arek-face');
+    }
+
+    update() {
+        gms.movement(Zibia.player, this.cursors);
+    }
+
+    render() {
+        this.game.debug.text(game.time.fps, 2, 14, "#00ff00");
+    }
 }
 
-Zibia.preloader.prototype = {
-
-  init: function () {
-    stateInfo.showState('preloader');
-  },
-
-  preload: function () {
-    this.game.load.spritesheet('player', 'assets/aro.png', 32, 48);
-  },
-
-  create: function() {
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.game.time.advancedTiming = true;
-
-    this.game.camera.scale.x = 1.2;
-    this.game.camera.scale.y = 1.2;
+Zibia.cityLevel = new CityLevel();
 
 
-    Zibia.player = this.make.sprite(16, 16, 'player');
-    Zibia.player.anchor.set(0.5);
-    Zibia.player.animations.add('left', [0, 1, 2, 3], 10, true);
-    Zibia.player.animations.add('right', [5, 6, 7, 8], 10, true);
-    this.physics.arcade.enable(Zibia.player);
+class Preloader {
+    constructor() {
+        stateInfo.bootCreate('preloader');
+    }
 
-    this.game.state.start('roomLevel');
-  }
-};
+    init() {
+        stateInfo.showState('preloader');
+    }
+
+    preload() {
+        this.game.load.spritesheet('player', 'assets/aro2.png', 32, 48);
+    }
+
+    create() {
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.time.advancedTiming = true;
+
+        this.game.camera.scale.x = 1.2;
+        this.game.camera.scale.y = 1.2;
 
 
-Zibia.roomLevel = function() {
-  stateInfo.bootCreate('roomLevel');
+        Zibia.player = this.make.sprite(16, 16, 'player');
+        Zibia.player.anchor.set(0.5);
+        // Zibia.player.animations.add('left', [4, 3, 2, 1], 10, true);
+        // Zibia.player.animations.add('right', [6, 7, 8, 9], 10, true);
+        this.physics.arcade.enable(Zibia.player);
+
+        this.game.state.start('roomLevel');
+    }
 }
 
-Zibia.roomLevel.prototype = {
-  init: function(){
-    stateInfo.showState('roomLevel');
-  },
+Zibia.preloader = new Preloader();
 
-  create: function(){
-    // if(!Zibia.player.parent) {
-    //   this.add.existing(Zibia.player);
-    // }
-    this.game.state.start('cityLevel');
-  }
-};
+
+class RoomLevel {
+    constructor() {
+        stateInfo.bootCreate('roomLevel');
+    }
+
+    init() {
+        stateInfo.showState('roomLevel');
+    }
+
+    create() {
+        // if(!Zibia.player.parent) {
+        //   this.add.existing(Zibia.player);
+        // }
+        this.game.state.start('cityLevel');
+    }
+}
+
+Zibia.roomLevel = new RoomLevel();
 
 
 game.state.add('boot', Zibia.bootState);
