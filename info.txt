@@ -1,3 +1,9 @@
 Wymiary
 
 cityLevel : 4800, 3200;
+
+spritesheet:
+
+margines: 7px
+odstep: 7px
+szerokosc:  (18.75px?)

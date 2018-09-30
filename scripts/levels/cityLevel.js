@@ -32,7 +32,7 @@ class CityLevel {
     }
 
     update() {
-        gms.movement(Zibia.player, this.cursors);
+        gms.movement(Zibia.player);
     }
 
     render() {

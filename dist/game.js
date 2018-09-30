@@ -84,10 +84,9 @@ class GameMechanics {
     }
     else if (cursors.up.isDown) {
       Zibia.player.body.velocity.y = -300;
-      Zibia.player.frame = 3;
     }
     else {
-      Zibia.player.animations.stop();
+      // Zibia.player.animations.stop();
       // Zibia.player.frame = 4;
     }
   }
@@ -95,6 +94,55 @@ class GameMechanics {
 }
 
 let gms = new GameMechanics();
+
+class Inventory {
+    constructor(){
+        this.items = new Map();
+        this.slots = 0;
+        const maxSlots = 10;
+    }
+
+    addItem(name, item) {
+        if(!hasItem(name)) {
+            this.slots++;
+            this.items.set(name, item);
+        }
+        else {
+            console.log("An item with given name already exists in player's inventory!");
+        }
+    }
+
+    removeItem(name) {
+        if(hasItem(name)) {
+            this.items.delete(name);
+            this.slots--;
+        }
+        else {
+            console.log("An item with given name does not exist in player's inventory!");
+        }
+    }
+
+    useItem(name) {
+
+    }
+
+    hasItem(name) {
+        return (this.items.has(name)) ? true : false;
+    }
+
+}
+
+class Player {
+    constructor() {
+        this.player = Zibia.player
+        this.inventory = new Inventory();
+    }
+
+
+
+
+
+}
 
 
 class StateInfo {
@@ -147,7 +195,7 @@ class CityLevel {
     }
 
     create() {
-        game.world.setBounds(0, 0, 3200, 4800);
+        game.world.setBounds(0, 0, 4800, 3200);
         Zibia.player.frame = 4;
         let map = this.add.tilemap('city');
         map.addTilesetImage('roguelikeCity_transparent', 'city-tiles');
@@ -164,7 +212,7 @@ class CityLevel {
     }
 
     update() {
-        gms.movement(Zibia.player, this.cursors);
+        gms.movement(Zibia.player);
     }
 
     render() {
@@ -185,18 +233,19 @@ class Preloader {
     }
 
     preload() {
-        this.game.load.spritesheet('player', 'assets/aro2.png', 32, 48);
+        this.game.load.spritesheet('player', 'assets/aro.png', 16, 35, 1, 7, 7);
     }
 
     create() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.time.advancedTiming = true;
 
-        this.game.camera.scale.x = 1.2;
-        this.game.camera.scale.y = 1.2;
+        // this.game.camera.scale.x = 1.2;
+        // this.game.camera.scale.y = 1.2;
 
+        Zibia.player = this.make.sprite(100, 100, 'player');
+        Zibia.player.frame = 1;
 
-        Zibia.player = this.make.sprite(16, 16, 'player');
         Zibia.player.anchor.set(0.5);
         // Zibia.player.animations.add('left', [4, 3, 2, 1], 10, true);
         // Zibia.player.animations.add('right', [6, 7, 8, 9], 10, true);

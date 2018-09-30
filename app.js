@@ -10,6 +10,8 @@ let mainWindow;
 app.on('ready', function(){
   // Create new window
   mainWindow = new BrowserWindow({
+    minHeight: 1000,
+    minWidth: 800,
     webPreferences: {
       allowRunningInsecureContent: true
     }

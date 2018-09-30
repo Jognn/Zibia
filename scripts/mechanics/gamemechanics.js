@@ -24,10 +24,9 @@ class GameMechanics {
     }
     else if (cursors.up.isDown) {
       Zibia.player.body.velocity.y = -300;
-      Zibia.player.frame = 3;
     }
     else {
-      Zibia.player.animations.stop();
+      // Zibia.player.animations.stop();
       // Zibia.player.frame = 4;
     }
   }
