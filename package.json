@@ -21,7 +21,7 @@
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-install": "^1.1.0",
-    "npm": "^6.4.1"
+    "npm": "^6.13.4"
   },
   "devDependencies": {
     "electron": "^3.0.0",
